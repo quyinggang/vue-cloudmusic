@@ -1,4 +1,3 @@
-# vue-cloudmusic
 #### 功能
 仿网易云音乐样式的音乐播放器
 #### 技术
@@ -14,3 +13,8 @@ vue全家桶 + font awesome + less
 本项目仅供学习交流使用
 #### Licence
 MIT
+
+
+
+
+

@@ -1,0 +1,50 @@
+.slider-block-bar(@wrapperWidth) {
+   @btnWidth: @wrapperWidth - 4;
+  .bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: inherit;
+    border-radius: 5px;
+    background: #B82525;
+    .btn-wrapper {
+      position: absolute;
+      top: 50%;
+      right: -(@wrapperWidth / 2);
+      width: @wrapperWidth;
+      height: @wrapperWidth;
+      margin-top: -(@wrapperWidth / 2);
+      background: transparent;
+      cursor: pointer;
+      .btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: @btnWidth;
+        height: @btnWidth;
+        border-radius: 50%;
+        border: (@btnWidth / 2 - 2) solid #fff;
+        margin: -(@btnWidth / 2) 0 0 -(@btnWidth / 2);
+        background: #B82525;
+        box-sizing: border-box;
+        box-shadow: 0 0 0 1px rgba(165, 165, 165, .8);
+        &:hover {
+          box-shadow: 0 0 5px .3px rgba(255, 255, 255, .6);
+        }
+      }
+    }
+  }
+}
+
+.slider-block(@height, @width, @bg, @wrapperWidth) {
+  display: inline-block;
+  position: relative;
+  top: -3px;
+  height: @height;
+  width: @width;
+  line-height: @height;
+  border-radius: 5px;
+  background: @bg;
+  cursor: pointer;
+  .slider-block-bar(@wrapperWidth);
+}
