@@ -1,23 +1,43 @@
 <template>
   <div class="color-range">
-    <div :class="[classes.colorShow, isActive ? classes.active : '']" :style="colorShowStyle">
+    <div
+      :class="[classes.colorShow, isActive ? classes.active : '']"
+      :style="colorShowStyle">
     </div>
     <div class="rgb-range">
       <div class="container">
-        <vue-slider class="control r" title="R" min="0" max="255" @currentValue="getCurrentRValue"></vue-slider>
+        <vue-slider
+          class="control r"
+          title="R"
+          min="0"
+          max="255"
+          @currentValue="setCurrentRGB">
+        </vue-slider>
       </div>
       <div class="container">
-        <vue-slider class="control g" title="G" min="0" max="255" @currentValue="getCurrentGValue"></vue-slider>
+        <vue-slider
+          class="control g"
+          title="G"
+          min="0"
+          max="255"
+          @currentValue="setCurrentRGB">
+        </vue-slider>
       </div>
       <div class="container">
-        <vue-slider class="control b" title="B" min="0" max="255" @currentValue="getCurrentBValue"></vue-slider>
+        <vue-slider
+          class="control b"
+          title="B"
+          min="0"
+          max="255"
+          @currentValue="setCurrentRGB">
+        </vue-slider>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import vueSlider from './vueSlider';
+import VueSlider from './vue-slider';
 export default {
   name: 'color-range',
   props: {
@@ -25,7 +45,7 @@ export default {
     default: false
   },
   components: {
-    vueSlider
+    VueSlider
   },
   data() {
     return {
@@ -42,11 +62,14 @@ export default {
   },
   computed: {
     colorShowStyle() {
-      let {r, g, b} = this.currentRGB;
-      let [hexR, hexG, hexB] = [this.pad(r.toString(16)), this.pad(g.toString(16)), this.pad(b.toString(16))];
-      let color = `#${hexR}${hexG}${hexB}`;
+      let color = '';
+      const currentRGB = this.currentRGB;
+      Object.keys(currentRGB).forEach(key => {
+        color += this.pad(currentRGB[key].toString(16));
+      });
+      color = `#${color}`;
       this.postSelectColor(color);
-      return {background: color};
+      return { background: color };
     }
   },
   methods: {
@@ -56,14 +79,9 @@ export default {
     postSelectColor(val) {
       this.$emit('currentColor', val);
     },
-    getCurrentRValue(val) {
-      this.$set(this.currentRGB, 'r', val);
-    },
-    getCurrentGValue(val) {
-      this.$set(this.currentRGB, 'g', val);
-    },
-    getCurrentBValue(val) {
-      this.$set(this.currentRGB, 'b', val);
+    setCurrentRGB(type, val) {
+      if (!type) return;
+      this.currentRGB[type] = val;
     }
   }
 };

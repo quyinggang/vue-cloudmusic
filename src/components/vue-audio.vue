@@ -1,6 +1,11 @@
 <template>
   <section class="audio">
-    <audio id="audio" style="width: 0;height: 0;" preload="auto" :src="currentSong ? currentSong.src : ''"></audio>
+    <audio
+      id="audio"
+      style="width: 0;height: 0;"
+      preload="auto"
+      :src="currentSong ? currentSong.src : ''">
+    </audio>
     <ul class="container" :class="[isThemeOfOther ? classes.isOther : classes.isDefault]">
       <li class="item control" @click="handleControlClick">
         <span class="icon prev" v-show="!isHidden" :style="bgStyle">
@@ -19,7 +24,7 @@
           <div class="buffer"></div>
           <div class="bar" :style="songBarStyle">
             <div class="btn-wrapper"
-            @mousedown="hanldeSongButtonDown">
+              @mousedown="hanldeSongButtonDown">
               <div class="btn" :style="btnStyle"></div>
             </div>
           </div>
@@ -40,12 +45,19 @@
         </div>
       </li>
       <li class="item song-about">
-        <span class="icon play-mode" @click="changePlayMode" :title="getCurrentModeMsg" v-show="!isHidden">
+        <span
+          v-show="!isHidden"
+          class="icon play-mode"
+          @click="changePlayMode"
+          :title="getCurrentModeMsg">
           <i :class="modes[currentModeIndex]"></i>
           <span class="single" v-show="currentModeIndex === 2">1</span>
         </span>
         <span class="icon lyric" @click="openMiNiAudio">词</span>
-        <span class="icon song-list" @click="openSongList" v-show="!isHidden">
+        <span
+          v-show="!isHidden"
+          class="icon song-list"
+          @click="openSongList">
           <i class="fa fa-list"></i>
           <span class="size">{{songs.length}}</span>
         </span>
@@ -57,20 +69,20 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex';
-import songList from './songList';
-import songGraph from './songGraph';
-import apiData from '@/api/data';
-import session from '@/api/persistData';
+import { mapActions, mapGetters } from 'vuex';
+import SongList from './song-list';
+import SongGraph from './song-graph';
+import ApiData from '@/api/data';
+import session from '@/api/persist-data';
 import * as consts from '@/api/consts';
-import dealAudio from '@/utils/dealAudioData';
-import mixinTheme from '@/mixins/mixin-theme';
+import { formatSecToMinu } from '@/utils/format';
+import MixinTheme from '@/mixins/mixin-theme';
 export default {
   components: {
-    songList,
-    songGraph
+    SongList,
+    SongGraph
   },
-  mixins: [mixinTheme],
+  mixins: [MixinTheme],
   data() {
     return {
       theme: null,
@@ -191,7 +203,7 @@ export default {
           this.$set(songBar, 'left', Math.min(precision * max * 0.01 * width, range[1]));
         }
       }
-      return dealAudio.formatSecToMinu(this.audioData.currentTime);
+      return formatSecToMinu(this.audioData.currentTime);
     },
     getCurrentVolume() {
       return this.audioData.currentVolume;
@@ -205,11 +217,7 @@ export default {
     volumeBarLeft: 'handleBarLeft',
     theme: {
       handler(skinObj) {
-        if (skinObj.audio !== 'transparent') {
-          this.isThemeOfOther = true;
-        } else {
-          this.isThemeOfOther = false;
-        }
+        this.isThemeOfOther = skinObj.audio !== 'transparent' ? true : Boolean(false);
       },
       deep: true
     },
@@ -241,7 +249,6 @@ export default {
     // 私有fm时，audio的改变
     getIsChangeAudio(isChange) {
       this.isHidden = isChange;
-      // this.setProgressToZero();
     },
     // 监听当前歌曲的变化
     getCurrentSong(sId) {
@@ -352,7 +359,7 @@ export default {
     },
     getTargetSong(id) {
       let target = null;
-      let songs = apiData.lastLeftSongs;
+      let songs = ApiData.lastLeftSongs;
       for (let index = 0, len = songs.length; index < len; index++) {
         let item = songs[index];
         if (item.id === id) {
@@ -408,7 +415,7 @@ export default {
       let audioData = this.audioData;
       let {theAudio} = this.audioData;
       audioData.duration = theAudio.duration;
-      audioData.formatDuration = dealAudio.formatSecToMinu(theAudio.duration);
+      audioData.formatDuration = formatSecToMinu(theAudio.duration);
       audioData.buffered = theAudio.buffered;
       audioData.currentVolume = theAudio.volume;
     },
@@ -457,7 +464,7 @@ export default {
         this.play();
       } else if (this.getCurrentRoutePath !== '/selfFM') {
         if (!this.fmSongs.length) {
-          this.fmSongs = apiData.fmSongs;
+          this.fmSongs = ApiData.fmSongs;
           this.fmSongs.forEach((item, index) => {
             if (item.id === this.currentSong.id) {
               this.fmIndex = index;

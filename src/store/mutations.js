@@ -1,5 +1,5 @@
 import types from './mutation-types';
-import session from '@/api/persistData';
+import session from '@/api/persist-data';
 let songDealDetail = function(state, payLoad, key) {
   let {songs, operator} = payLoad;
   let songData = key === types.HISTORY_SONG_DATA ? state.historySongData : state.songListData;

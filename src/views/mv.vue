@@ -26,15 +26,15 @@
 </template>
 
 <script>
-import apiData from '@/api/data';
+import ApiData from '@/api/data';
 import * as consts from '@/api/consts';
-import session from '@/api/persistData';
-import vueVideo from '@/components/vueVideo';
-import {mapGetters, mapActions} from 'vuex';
+import session from '@/api/persist-data';
+import VueVideo from '@/components/vue-video';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'mv',
   components: {
-    vueVideo
+    VueVideo
   },
   data() {
     return {
@@ -88,7 +88,7 @@ export default {
     ]),
     getTargetMV(id) {
       let target = null;
-      let data = apiData.mvs;
+      let data = ApiData.mvs;
       for (let index = 0, len = data.length; index < len; index++) {
         let item = data[index];
         if (item.id === id) {

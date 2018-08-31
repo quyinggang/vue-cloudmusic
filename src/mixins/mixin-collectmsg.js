@@ -1,7 +1,7 @@
-import collectMessage from '@/components/collectMessage';
+import CollectMessage from '@/components/collect-message';
 export default {
   components: {
-    collectMessage
+    CollectMessage
   },
   data() {
     return {

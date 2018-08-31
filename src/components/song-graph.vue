@@ -1,17 +1,18 @@
 <template>
-  <section class="song-graph"
+  <section
+    class="song-graph"
     @mouseover="handleMouseOver"
     @mouseout="handleMouseOut"
     :style="graphStyle">
     <div class="graph" @click="handleIconClick">
-      <img :src="currentSong ? currentSong.imgUrl : ''">
+      <img :src="currentSong && currentSong.imgUrl">
       <span class="icon" v-show="isShowExpand">
         <i class="fa fa-expand"></i>
       </span>
     </div>
     <div class="song-infoes">
-      <span class="name">{{currentSong ? currentSong.name : ''}}</span>
-      <span class="author">{{currentSong ? currentSong.author : ''}}</span>
+      <span class="name">{{currentSong && currentSong.name}}</span>
+      <span class="author">{{currentSong && currentSong.author}}</span>
     </div>
     <div class="operator">
       <span class="icon" @click="handleSongCollect">
@@ -23,13 +24,13 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex';
-import mixinCollectMsg from '@/mixins/mixin-collectmsg';
-import mixinTheme from '@/mixins/mixin-theme';
+import { mapGetters, mapActions } from 'vuex';
+import MixinCollectMsg from '@/mixins/mixin-collectmsg';
+import MixinTheme from '@/mixins/mixin-theme';
 export default {
   name: 'song-graph',
   props: ['currentSong'],
-  mixins: [mixinCollectMsg, mixinTheme],
+  mixins: [MixinCollectMsg, MixinTheme],
   data() {
     return {
       theme: null,
@@ -128,8 +129,6 @@ export default {
   width: 199px;
   height: 58px;
   line-height: 58px;
-  // border-top: 1px solid rgba(35, 38, 44, 1);
-  // background: rgba(25, 27, 31, 1);
   .graph,
   .song-infoes,
   .operator {

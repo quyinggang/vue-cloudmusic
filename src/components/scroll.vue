@@ -1,8 +1,10 @@
 <template>
-  <div class="scroll" @mouseover="handleMouseOver"
-  @mouseout="handleMouseOut"
-  @mousewheel="handleMouseWheel"
-  @DOMMouseScroll="handleMouseWheel">
+  <div
+    class="scroll"
+    @mouseover="handleMouseOver"
+    @mouseout="handleMouseOut"
+    @mousewheel="handleMouseWheel"
+    @DOMMouseScroll="handleMouseWheel">
     <div class="content" :style="scrollStyle">
       <slot></slot>
     </div>
@@ -13,7 +15,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
   name: 'scroll',
   props: ['scrollIndex', 'total'],
@@ -36,7 +38,11 @@ export default {
     ]),
     scrollStyle() {
       let currentLine = this.currentLine;
-      let translateY = currentLine <= this.startLine ? 0 : (currentLine === this.startLine + 1 ? 9 : (this.total - currentLine < this.limitLine ? '' : (currentLine - this.startLine) * this.lineHeight));
+      let translateY = currentLine <= this.startLine ? 0 : (
+        currentLine === this.startLine + 1 ? 9 : (
+          this.total - currentLine < this.limitLine ? '' : (
+            currentLine - this.startLine) * this.lineHeight
+        ));
       return {transform: `translateY(-${translateY}px)`, transition: 'transform .3s linear'};
     },
     barStyle() {
@@ -49,9 +55,7 @@ export default {
       this.scroll(index);
     },
     getCurrentSong(id) {
-      if (id) {
-        this.top = 0;
-      }
+      if (id) this.top = 0;
     }
   },
   mounted() {
@@ -62,9 +66,7 @@ export default {
   methods: {
     scroll(index) {
       let startLine = this.startLine;
-      if (index <= startLine) {
-        return;
-      }
+      if (index <= startLine) return;
       let percent = index / this.total;
       let limit = this.max - this.barHeight;
       this.top = Math.min(percent * this.max, limit);

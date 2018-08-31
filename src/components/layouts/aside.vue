@@ -1,33 +1,39 @@
 <template>
-    <aside class="aside" :style="{background: theme['aside'].background, borderColor: theme['aside'].border}">
-        <section class="menu" v-for="(item, index) in menu" :key="index">
-            <label class="title">{{item.title}}</label>
-            <ul class="menu-item">
-                <li v-for="(child, index) in item.childs" 
-                    :key="index"
-                    :style="[child.router === active ? {borderColor: theme['aside'].borderActive} : '']"
-                    :class="[theme['audio'] === 'transparent' ? '' : classes.isNotBlack, child.router === active ? classes.active : '']"
-                    @click="handleSelection(child.router)">
-                  <i :class="child.icon"></i>
-                  {{child.content}}
-                </li>
-            </ul>
-        </section>
-        <select-skins :isShow="isShow" v-on:closeSelectSkins="closeSelectSkins"></select-skins>
-    </aside>
+  <aside class="aside" :style="getStyle">
+    <section
+      class="menu"
+      v-for="(item, index) in menu"
+      :key="index">
+      <label class="title">{{item.title}}</label>
+      <ul class="menu-item">
+        <li v-for="(child, index) in item.childs" 
+          :key="index"
+          :style="[child.router === active ? { borderColor: theme['aside'].borderActive } : '']"
+          :class="[theme['audio'] === 'transparent' ? '' : classes.isNotBlack, child.router === active ? classes.active : '']"
+          @click="handleSelection(child.router)">
+          <i :class="child.icon"></i>
+            {{child.content}}
+        </li>
+      </ul>
+    </section>
+    <select-skins
+      :isShow="isShow"
+      @closeSelectSkins="closeSelectSkins">
+    </select-skins>
+  </aside>
 </template>
 
 <script>
-import selectSkins from '../selectSkins';
-import mixinTheme from '@/mixins/mixin-theme';
-import session from '@/api/persistData';
+import SelectSkins from '../select-skins';
+import MixinTheme from '@/mixins/mixin-theme';
+import session from '@/api/persist-data';
 import * as consts from '@/api/consts';
 export default {
   name: 'm-aside',
   components: {
-    selectSkins
+    SelectSkins
   },
-  mixins: [mixinTheme],
+  mixins: [MixinTheme],
   data() {
     return {
       theme: null,
@@ -63,6 +69,13 @@ export default {
   computed: {
     getCurrentRoutePath() {
       return this.$route.path;
+    },
+    getStyle() {
+      const theme = this.theme;
+      return {
+        background: theme['aside'].background,
+        borderColor: theme['aside'].border
+      };
     }
   },
   watch: {
@@ -72,9 +85,8 @@ export default {
   },
   mounted() {
     let seActive = session.getItem(consts.ASIDE_ACTIVE);
-    if (seActive) {
-      this.active = seActive;
-    }
+    if (!seActive) return;
+    this.active = seActive;
   },
   methods: {
     handleSelection(router) {

@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import vueAudio from '../vueAudio';
-import mixinTheme from '@/mixins/mixin-theme';
+import VueAudio from '../vue-audio';
+import MixinTheme from '@/mixins/mixin-theme';
 export default {
   name: 'm-footer',
-  mixins: [mixinTheme],
+  mixins: [MixinTheme],
   components: {
-    vueAudio
+    VueAudio
   },
   data() {
     return {
@@ -27,7 +27,7 @@ export default {
         bg = '#F5F5F7';
         border = '#E1E1E2';
       }
-      return {background: bg, borderTop: `1px solid ${border}`};
+      return { background: bg, borderTop: `1px solid ${border}` };
     }
   }
 };

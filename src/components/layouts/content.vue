@@ -1,18 +1,18 @@
 <template>
   <div class="default-mode">
     <m-aside></m-aside>
-    <article :class="[classes.content, theme['audio'] !== 'transparent' ? classes.changeBar : '']">
-        <router-view></router-view>
+    <article :class="getClasses">
+      <router-view></router-view>
     </article>
   </div>
 </template>
 
 <script>
 import MAside from './aside';
-import mixinTheme from '@/mixins/mixin-theme';
+import MixinTheme from '@/mixins/mixin-theme';
 export default {
   name: 'layout',
-  mixins: [mixinTheme],
+  mixins: [MixinTheme],
   components: {
     MAside
   },
@@ -24,6 +24,15 @@ export default {
         changeBar: 'change-bar'
       }
     };
+  },
+  computed: {
+    getClasses() {
+      const theme = this.theme;
+      return {
+        'content': true,
+        'change-bar': theme['audio'] !== 'transparent'
+      };
+    }
   }
 };
 </script>

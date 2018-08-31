@@ -1,4 +1,4 @@
-import {mapGetters} from 'vuex';
+import { mapGetters } from 'vuex';
 import themes from '@/api/theme';
 export default {
   computed: {

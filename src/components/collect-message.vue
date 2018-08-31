@@ -1,6 +1,7 @@
 <template>
   <div class="collect-message">
-    <message :isShowMessage="message.isShow" 
+    <message
+      :isShowMessage="message.isShow" 
       :isShowHeader="false" 
       :isTimeout="true"
       @close="handleClose">

@@ -1,8 +1,8 @@
 <template>
-    <section class="single-song">
-      <div class="bg" :style="bgStyle"></div>
-      <div class="content">
-         <div class="song-control">
+  <section class="single-song">
+    <div class="bg" :style="bgStyle"></div>
+    <div class="content">
+      <div class="song-control">
         <div :class="[classes.stylus, isPlaying ? classes.isPlay : classes.isPause]">
           <img src="../assets/images/stylus.png" alt="image">
         </div>
@@ -20,15 +20,19 @@
       </div>
       <div class="song-detail">
         <div class="info">
-          <h2>{{currentSong ? currentSong.name : ''}}</h2>
-          <label>专辑：{{currentSong ? currentSong.album : '' | albumFilter}}</label>
-          <label>歌手：{{currentSong ? currentSong.author : ''}}</label>
+          <h2>{{currentSong && currentSong.name}}</h2>
+          <label>专辑：{{currentSong && currentSong.album | albumFilter}}</label>
+          <label>歌手：{{currentSong && currentSong.author}}</label>
         </div>
         <div class="lyric-box">
           <scroll :scrollIndex="scrollIndex" :total="this.lyrics.contents.length">
             <div class="lyric">
-              <p v-for="(item, index) in lyrics.times" :key="index"
-                :class="[item.isActive ? classes.active : '']">{{lyrics.contents[index]}}</p>
+              <p
+                v-for="(item, index) in lyrics.times"
+                :key="index"
+                :class="[item.isActive ? classes.active : '']">
+                {{lyrics.contents[index]}}
+              </p>
             </div>
           </scroll>
         </div>
@@ -36,13 +40,13 @@
       <span class="icon back" @click="back">
         <i class="fa fa-compress"></i>
       </span>
-      </div>
-    </section>
+    </div>
+  </section>
 </template>
 
 <script>
-import lyricUtils from '@/utils/formatLyric';
-import session from '@/api/persistData';
+import { formatLyric } from '@/utils/format';
+import session from '@/api/persist-data';
 import * as consts from '@/api/consts';
 import apiData from '@/api/data';
 import {mapActions, mapGetters} from 'vuex';
@@ -170,7 +174,7 @@ export default {
       return target;
     },
     getLyric() {
-      let [times, contents] = lyricUtils.formatLyric(this.currentSong.lyric);
+      let [times, contents] = formatLyric(this.currentSong.lyric);
       this.lyrics.contents = contents;
       this.lyrics.times = times.map((item) => {
         let [minute, secs] = String(item).split(':');

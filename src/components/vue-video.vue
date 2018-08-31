@@ -42,7 +42,7 @@
           <div class="run-way" @click="handleClickBar($event, 'volume')">
             <div class="bar" :style="volumeBarStyle">
               <div class="btn-wrapper"
-              @mousedown="hanldeVolumeButtonDown">
+                @mousedown="hanldeVolumeButtonDown">
                 <div class="btn"></div>
               </div>
             </div>
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import dealAudio from '@/utils/dealAudioData';
+import { formatSecToMinu } from '@/utils/format';
 export default {
   name: 'vue-video',
   props: ['src'],
@@ -138,7 +138,7 @@ export default {
       if (range) {
         this.$set(mvBar, 'left', Math.min(precision * max * 0.01 * width, range[1]));
       }
-      return dealAudio.formatSecToMinu(this.videoData.currentTime);
+      return formatSecToMinu(this.videoData.currentTime);
     },
     getCurrentVolume() {
       return this.videoData.currentVolume;
@@ -196,7 +196,7 @@ export default {
       let videoData = this.videoData;
       let {theVideo} = this.videoData;
       videoData.duration = theVideo.duration;
-      videoData.formatDuration = dealAudio.formatSecToMinu(theVideo.duration);
+      videoData.formatDuration = formatSecToMinu(theVideo.duration);
       videoData.buffered = theVideo.buffered;
       videoData.currentVolume = theVideo.volume;
     },

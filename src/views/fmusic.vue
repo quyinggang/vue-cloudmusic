@@ -88,23 +88,23 @@
 </template>
 
 <script>
-import vueCarousel from '@/components/vueCarousel';
-import apiData from '@/api/data';
-import session from '@/api/persistData';
+import VueCarousel from '@/components/vue-carousel';
+import ApiData from '@/api/data';
+import session from '@/api/persist-data';
 import * as consts from '@/api/consts';
 import {mapGetters, mapActions} from 'vuex';
 export default {
   name: 'fmusic',
   components: {
-    vueCarousel
+    VueCarousel
   },
   data() {
     return {
       isThemeOfOther: false,
-      sls: apiData.sls,
-      mvs: apiData.mvs,
-      lastLeftSongs: apiData.lastLeftSongs,
-      lastRightSongs: apiData.lastRightSongs,
+      sls: ApiData.sls,
+      mvs: ApiData.mvs,
+      lastLeftSongs: ApiData.lastLeftSongs,
+      lastRightSongs: ApiData.lastRightSongs,
       timer: null,
       overTimer: null,
       currentHeight: 0,
@@ -476,13 +476,6 @@ export default {
                 line-height: 16px;
               }
             }
-          }
-          &:nth-of-type(2n) {
-            // background: ;
-            // background: rgba(245, 245, 247, 1);
-          }
-          &:hover {
-            // background: rgba(38, 40, 44, .5);
           }
         }
         .is-default-theme {

@@ -3,11 +3,12 @@
     <div class="title" v-if="title">{{title}}：</div>
     <div class="container">
       <div class="slider-runway" @click="handleClickBar">
-        <div class="slider-btn-wrapper"
-        @mousedown="hanldeButtonDown"
-        @mouseover="handleShowToolTip(true)"
-        @mouseout="handleShowToolTip(false)"
-        :style="wrapperStyle">
+        <div
+          class="slider-btn-wrapper"
+          @mousedown="hanldeButtonDown"
+          @mouseover="handleShowToolTip(true)"
+          @mouseout="handleShowToolTip(false)"
+          :style="wrapperStyle">
           <div class="tooltip" v-show="isShowTooltip">{{currentValue}}</div>
           <div class="slider-btn"></div>
         </div>

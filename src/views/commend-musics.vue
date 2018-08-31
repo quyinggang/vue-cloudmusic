@@ -54,24 +54,24 @@
 </template>
 
 <script>
-import session from '@/api/persistData';
+import session from '@/api/persist-data';
 import * as consts from '@/api/consts';
-import apiData from '@/api/data';
-import {mapActions, mapGetters} from 'vuex';
-import contextMenu from '@/components/contextMenu';
-import mixinContextMenu from '@/mixins/mixin-contextmenu';
-import mixinCollectMsg from '@/mixins/mixin-collectmsg';
+import ApiData from '@/api/data';
+import { mapActions, mapGetters } from 'vuex';
+import ContextMenu from '@/components/context-menu';
+import MixinContextMenu from '@/mixins/mixin-contextmenu';
+import MixinCollectMsg from '@/mixins/mixin-collectmsg';
 export default {
   name: 'commend-musics',
   components: {
-    contextMenu
+    ContextMenu
   },
-  mixins: [mixinContextMenu, mixinCollectMsg],
+  mixins: [MixinContextMenu, MixinCollectMsg],
   data() {
     return {
       currentWeekDay: null,
       currentDate: null,
-      songs: apiData.lastLeftSongs,
+      songs: ApiData.lastLeftSongs,
       classes: {
         heart: 'fa fa-heart-o',
         redHeart: 'fa fa-heart'

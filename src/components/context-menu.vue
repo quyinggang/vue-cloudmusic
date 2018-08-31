@@ -1,6 +1,7 @@
 <template>
   <div class="context-menu">
-    <message :isShowHeader="false"
+    <message
+      :isShowHeader="false"
       :isShowMessage="menu.isOpenContextMenu"
       :positionX="menu.clientX"
       :positionY="menu.clientY">
@@ -27,7 +28,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex';
+import { mapActions } from 'vuex';
 export default {
   props: ['contextMenu', 'isShowCollect', 'isShowDelete'],
   data() {

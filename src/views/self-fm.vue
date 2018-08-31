@@ -49,19 +49,17 @@
 
 <script>
 import apiData from '@/api/data';
-import lyricUtils from '@/utils/formatLyric';
+import { formatLyric } from '@/utils/format';
 import scroll from '@/components/scroll';
-import {mapGetters, mapActions} from 'vuex';
-import mixinCollectMsg from '@/mixins/mixin-collectmsg';
-import mixinTheme from '@/mixins/mixin-theme';
-// import session from '@/api/persistData';
-// import * as consts from '@/api/consts';
+import { mapGetters, mapActions } from 'vuex';
+import MixinCollectMsg from '@/mixins/mixin-collectmsg';
+import MixinTheme from '@/mixins/mixin-theme';
 export default {
   name: 'self-fm',
   components: {
     scroll
   },
-  mixins: [mixinCollectMsg, mixinTheme],
+  mixins: [MixinCollectMsg, MixinTheme],
   data() {
     return {
       isSelfFMPlay: false,
@@ -253,7 +251,7 @@ export default {
       }
     },
     getLyric() {
-      let [times, contents] = lyricUtils.formatLyric(this.currentSong.lyric);
+      let [times, contents] = formatLyric(this.currentSong.lyric);
       this.lyrics.contents = contents;
       this.lyrics.times = times.map((item) => {
         let [minute, secs] = String(item).split(':');

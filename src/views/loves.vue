@@ -70,18 +70,18 @@
 </template>
 
 <script>
-import session from '@/api/persistData';
+import session from '@/api/persist-data';
 import * as consts from '@/api/consts';
-import {mapGetters, mapActions} from 'vuex';
-import apiData from '@/api/data';
-import contextMenu from '@/components/contextMenu';
-import mixinContextMenu from '@/mixins/mixin-contextmenu';
+import { mapGetters, mapActions } from 'vuex';
+import ApiData from '@/api/data';
+import ContextMenu from '@/components/context-menu';
+import MixinContextMenu from '@/mixins/mixin-contextmenu';
 export default {
   name: 'commend-musics',
   components: {
-    contextMenu
+    ContextMenu
   },
-  mixins: [mixinContextMenu],
+  mixins: [MixinContextMenu],
   data() {
     return {
       currentWeekDay: null,
@@ -128,7 +128,7 @@ export default {
       'commitLoveSongList'
     ]),
     getTargetSong(songIds) {
-      apiData.lastLeftSongs.forEach((item, index) => {
+      ApiData.lastLeftSongs.forEach((item, index) => {
         if (songIds.includes(item.id)) {
           this.songs.push(item);
           this.hash[item.id] = this.songs.length - 1;

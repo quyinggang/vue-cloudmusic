@@ -26,17 +26,17 @@ export default new Router({
             {
               path: '/selfFM',
               name: 'selfFM',
-              component: resolve => require(['@/views/selfFM'], resolve)
+              component: resolve => require(['@/views/self-fm'], resolve)
             },
             {
               path: '/myLoves',
               name: 'myLoves',
-              component: resolve => require(['@/views/myLoves'], resolve)
+              component: resolve => require(['@/views/loves'], resolve)
             },
             {
               path: '/commendMusics',
               name: 'commendMusics',
-              component: (resolve) => require(['@/views/commendMusics'], resolve)
+              component: (resolve) => require(['@/views/commend-musics'], resolve)
             }
           ]
         }

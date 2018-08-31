@@ -1,6 +1,8 @@
 <template>
   <transition name="slide-fade">
-    <section :class="[classes.selectSkins, theme['audio'] === 'transparent' ? '' : classes.isNotBlack]" v-if="getIsOpen">
+    <section
+      :class="getClasses" 
+      v-if="getIsOpen">
       <div class="ss-header">
         <span>皮肤选择</span>
         <span class="icon">
@@ -10,7 +12,10 @@
       <div class="ss-content">
         <label class="title">主题</label>
         <div class="content">
-          <figure v-for="(item, index) in themes" :key="index" :class="{active: item.isActive}">
+          <figure
+            v-for="(item, index) in themes"
+            :key="index"
+            :class="{active: item.isActive}">
             <span class="info" v-if="item.theme === 'purple'">魅惑紫</span>
             <img :src="item.src" @click="handleSelectSkin(item)">
           </figure>
@@ -18,14 +23,21 @@
         <label class="title">纯色</label>
         <div class="content">
           <ul>
-            <li :class="[classes.colorItem, item.isActive ? classes.active : '']" 
-              v-for="(item, index) in colors" :key="index" 
-              :style="{background: item.color}" @click="handleSelectSkin(item)"></li>
+            <li
+              :class="{'color-item': true, 'active': item.isActive}" 
+              v-for="(item, index) in colors"
+              :key="index" 
+              :style="{background: item.color}"
+              @click="handleSelectSkin(item)">
+            </li>
           </ul>
         </div>
         <label class="title">自定义颜色</label>
         <div class="content">
-          <color-range :isActive="isColorRange" @currentColor="handleCurrentSelect"></color-range>
+          <color-range
+            :isActive="isColorRange"
+            @currentColor="handleCurrentSelect">
+          </color-range>
         </div>
       </div>
     </section>
@@ -33,12 +45,12 @@
 </template>
 
 <script>
-import colorRange from './colorRange';
-import {mapActions} from 'vuex';
-import mixinTheme from '@/mixins/mixin-theme';
+import ColorRange from './color-range';
+import { mapActions } from 'vuex';
+import MixinTheme from '@/mixins/mixin-theme';
 export default {
   name: 'select-skins',
-  mixins: [mixinTheme],
+  mixins: [MixinTheme],
   props: {
     isShow: {
       type: Boolean,
@@ -46,19 +58,13 @@ export default {
     }
   },
   components: {
-    colorRange
+    ColorRange
   },
   data() {
     return {
       isOpen: false,
       theme: null,
       isColorRange: false,
-      classes: {
-        selectSkins: 'select-skins',
-        isNotBlack: 'is-not-black',
-        colorItem: 'color-item',
-        active: 'active'
-      },
       themes: [
         {theme: 'black', src: require('@/assets/images/black.png'), isActive: true},
         {theme: 'red', src: require('@/assets/images/red.png'), isActive: false},
@@ -78,6 +84,12 @@ export default {
     getIsOpen() {
       this.isOpen = this.isShow;
       return this.isOpen;
+    },
+    getClasses() {
+      return {
+        'select-skins': true,
+        'is-not-block': this.theme['audio'] !== 'transparent'
+      };
     }
   },
   methods: {

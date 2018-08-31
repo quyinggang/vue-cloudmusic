@@ -1,5 +1,7 @@
 <template>
-  <section class="mini-audio" draggable="true"
+  <section
+    class="mini-audio"
+    draggable="true"
     @dragstart="handleDragStart"
     @drag="handleDrag"
     @dragend="handleDragEnd"
@@ -16,9 +18,9 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import apiData from '@/api/data';
-import lyricUtils from '@/utils/formatLyric';
+import { formatLyric } from '@/utils/format';
 export default {
   name: 'mn-audio',
   data() {
@@ -108,7 +110,7 @@ export default {
       this.getLyric();
     },
     getLyric() {
-      let [times, contents] = lyricUtils.formatLyric(this.currentSong.lyric);
+      let [times, contents] = formatLyric(this.currentSong.lyric);
       this.lyrics.contents = contents;
       this.lyrics.times = times.map((item) => {
         let [minute, secs] = String(item).split(':');

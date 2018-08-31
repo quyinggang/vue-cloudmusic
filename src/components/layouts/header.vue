@@ -1,26 +1,21 @@
 <template>
-  <header :class="[classes.header, theme['audio'] === 'transparent' ? classes.showBorder : '']" :style="{background: theme['header']}">
+  <header
+    :class="getClasses"
+    :style="{background: theme['header']}">
     <ul class="nav">
       <li class="nav-left title">
         <img src="../../assets/images/title.png" alt="title">
         <span>{{title}}</span>
       </li>
-      <!-- <li class="nav-center search">
-        <div class="control">
-          <i class="fa fa-angle-left"></i>
-          <i class="fa fa-angle-right"></i>
-        </div>
-        <input type="text" name="search" @focus="" @blur=""/>
-      </li> -->
     </ul>
   </header>
 </template>
 
 <script>
-import mixinTheme from '@/mixins/mixin-theme';
+import MixinTheme from '@/mixins/mixin-theme';
 export default {
   name: 'm-header',
-  mixins: [mixinTheme],
+  mixins: [MixinTheme],
   data() {
     return {
       title: '云音乐',
@@ -32,8 +27,13 @@ export default {
       }
     };
   },
-  methods: {
-    handleIconClick() {
+  computed: {
+    getClasses() {
+      const theme = this.theme;
+      return {
+        'header': true,
+        'show-border': theme['audio'] === 'transparent'
+      };
     }
   }
 };

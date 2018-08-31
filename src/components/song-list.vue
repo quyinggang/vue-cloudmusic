@@ -29,8 +29,11 @@
           </li>
         </ul>
       </li>
-      <li class="song" v-for="(item, index) in getShowList" :key="index" 
-      @contextmenu="handleContextMenu($event, item, index)">
+      <li
+        class="song"
+        v-for="(item, index) in getShowList"
+        :key="index" 
+        @contextmenu="handleContextMenu($event, item, index)">
         <span :class="[classes.status, (item.state < 0 || currentActive) ? classes.hidden : '']">
           <i :class="[item.state ? classes.play : classes.pause]"></i>
         </span>
@@ -41,28 +44,28 @@
       </li>
     </ul>
     <context-menu
-    :contextMenu="contextMenu"
-    :isShowDelete="true"
-    :isShowCollect="false"
-    @deleteSong="handleSongDelete"
-    ></context-menu>
+      :contextMenu="contextMenu"
+      :isShowDelete="true"
+      :isShowCollect="false"
+      @deleteSong="handleSongDelete">
+    </context-menu>
   </div>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex';
-import apiData from '@/api/data';
-import session from '@/api/persistData';
+import { mapActions, mapGetters } from 'vuex';
+import ApiData from '@/api/data';
+import session from '@/api/persist-data';
 import * as consts from '@/api/consts';
-import contextMenu from '@/components/contextMenu';
-import mixinContextMenu from '@/mixins/mixin-contextmenu';
+import ContextMenu from '@/components/context-menu';
+import MixinContextMenu from '@/mixins/mixin-contextmenu';
 export default {
   name: 'song-list',
   props: ['songs'],
   components: {
-    contextMenu
+    ContextMenu
   },
-  mixins: [mixinContextMenu],
+  mixins: [MixinContextMenu],
   data() {
     return {
       showList: [],
@@ -162,16 +165,7 @@ export default {
       this.commitLoveSongList({id: ids, isAll: true});
     },
     getTargetSong(id) {
-      let target = null;
-      let data = apiData.lastLeftSongs;
-      for (let index = 0, len = data.length; index < len; index++) {
-        let item = data[index];
-        if (item.id === id) {
-          target = item;
-          break;
-        }
-      }
-      return target;
+      return ApiData.lastLeftSongs.filter(item => item.id === id);
     },
     handleSectionClick() {
       this.contextMenu.isOpenContextMenu = false;

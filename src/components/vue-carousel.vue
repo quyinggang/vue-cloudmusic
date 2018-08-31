@@ -1,7 +1,11 @@
 <template>
   <section class="cm-carousel">
     <ul class="carousel-content">
-      <li :class="[classes.item, item.status === 0 ? classes.active : (item.status === -1 ? classes.left : (item.status === 1 ? classes.right : ''))]" v-for="(item, index) in images" :key="index" @click="handleItemClick(item.status, index)">
+      <li
+        :class="[classes.item, item.status === 0 ? classes.active : (item.status === -1 ? classes.left : (item.status === 1 ? classes.right : ''))]"
+        v-for="(item, index) in images"
+        :key="index"
+        @click="handleItemClick(item.status, index)">
         <img :src="item.src" alt="image">
       </li>
     </ul>
@@ -12,7 +16,11 @@
       <i class="fa fa-chevron-right"></i>
     </span>
     <ul class="control-bar">
-      <li :class="[classes.barItem, item.status === 0 ? classes.active : '']" v-for="(item, index) in images" :key="index" @mouseover="handleClickBar(index)">
+      <li
+        :class="[classes.barItem, item.status === 0 ? classes.active : '']"
+        v-for="(item, index) in images"
+        :key="index"
+        @mouseover="handleClickBar(index)">
       </li>
     </ul>
   </section>
