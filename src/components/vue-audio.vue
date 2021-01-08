@@ -508,7 +508,7 @@ export default {
     play() {
       this.$nextTick(() => {
         this.isPlaying = true;
-        this.audioData.theAudio.play();;
+        this.audioData.theAudio.play();
       });
     },
     // 暂停
@@ -531,7 +531,6 @@ export default {
       let target = e.target;
       let isPlayIcon = false;
       let nodeName = String(target.nodeName).toLowerCase();
-      console.log(this.isHidden);
       if (nodeName === 'span' || nodeName === 'i') {
         isPlayIcon = (this.isExist(target, 'prev') || this.isExist(target, 'fa-step-backward')) ? (function(that) {
           let currentIndex = that.currentSongIndex;

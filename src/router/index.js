@@ -15,28 +15,28 @@ export default new Router({
         {
           path: '/content',
           name: 'content',
-          component: resolve => require(['@/components/layouts/content'], resolve),
+          component: () => import('@/components/layouts/content'),
           redirect: '/fmusic',
           children: [
             {
               path: '/fmusic',
               name: 'fmusic',
-              component: resolve => require(['@/views/fmusic'], resolve)
+              component: () => import('@/views/fmusic')
             },
             {
               path: '/selfFM',
               name: 'selfFM',
-              component: resolve => require(['@/views/self-fm'], resolve)
+              component: () => import('@/views/self-fm')
             },
             {
               path: '/myLoves',
               name: 'myLoves',
-              component: resolve => require(['@/views/loves'], resolve)
+              component: () => import('@/views/loves')
             },
             {
               path: '/commendMusics',
               name: 'commendMusics',
-              component: (resolve) => require(['@/views/commend-musics'], resolve)
+              component: () => import('@/views/commend-musics')
             }
           ]
         }
@@ -49,7 +49,7 @@ export default new Router({
         {
           path: '',
           name: 'song',
-          component: resolve => require(['@/views/song'], resolve)
+          component: () => import('@/views/song')
         }
       ]
     },
@@ -60,7 +60,7 @@ export default new Router({
         {
           path: '',
           name: 'mv',
-          component: resolve => require(['@/views/mv'], resolve)
+          component: () => import('@/views/mv')
         }
       ]
     }
